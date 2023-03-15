@@ -80,12 +80,12 @@ class _HomeState extends State<Home> {
                         radius: 20,
                         lineWidth: 5,
                         percent: 0.70,
-                        progressColor: Colors.purple,
-                        backgroundColor: Colors.purple.shade200,
+                        progressColor: Color(0xFF1051E3),
+                        backgroundColor: Color(0xFF1B2152),
                         circularStrokeCap: CircularStrokeCap.round,
                         center: Text(
                           "70%",
-                          style: TextStyle(fontSize: 10, color: Colors.purple),
+                          style: TextStyle(fontSize: 10, color: Colors.white),
                         ),
                       ),
                       Container(
