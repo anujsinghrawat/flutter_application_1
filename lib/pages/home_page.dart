@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/my_drawer.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Home extends StatefulWidget {
@@ -10,10 +11,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int pageIndex = 0;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer: MyDrawer(),
       backgroundColor: Color(0xFF02012D),
       body: SafeArea(
           minimum: EdgeInsets.symmetric(horizontal: 10),
@@ -24,6 +28,8 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: 15,
                 ),
+
+                //first container
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -32,10 +38,19 @@ class _HomeState extends State<Home> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundImage:
-                                  NetworkImage('https://i.pravatar.cc/300'),
+                            GestureDetector(
+                              onTap: () {
+                                if (scaffoldKey.currentState!.isDrawerOpen) {
+                                  scaffoldKey.currentState!.openEndDrawer();
+                                } else {
+                                  scaffoldKey.currentState!.openDrawer();
+                                }
+                              },
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundImage:
+                                    NetworkImage('https://i.pravatar.cc/300'),
+                              ),
                             ),
                             SizedBox(width: 10),
                             Column(
@@ -64,35 +79,47 @@ class _HomeState extends State<Home> {
                 SizedBox(height: 20),
 
                 //second conatiner
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xFF1B2152),
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CircularPercentIndicator(
-                        animation: true,
-                        animationDuration: 5000,
-                        radius: 20,
-                        lineWidth: 5,
-                        percent: 0.70,
-                        progressColor: Color(0xFF1051E3),
-                        backgroundColor: Color(0xFF1B2152),
-                        circularStrokeCap: CircularStrokeCap.round,
-                        center: Text(
-                          "70%",
-                          style: TextStyle(fontSize: 10, color: Colors.white),
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Success"),
+                            content: Text("Saved successfully"),
+                          );
+                        });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFF1B2152),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CircularPercentIndicator(
+                          animation: true,
+                          animationDuration: 5000,
+                          radius: 20,
+                          lineWidth: 5,
+                          percent: 0.70,
+                          progressColor: Color(0xFF1051E3),
+                          backgroundColor: Color(0xFF1B2152),
+                          circularStrokeCap: CircularStrokeCap.round,
+                          center: Text(
+                            "70%",
+                            style: TextStyle(fontSize: 10, color: Colors.white),
+                          ),
                         ),
-                      ),
-                      Container(
-                          width: 250,
-                          child: Text(
-                              'Please complete your profile to book consultations.')),
-                    ],
+                        Container(
+                            width: 250,
+                            child: Text(
+                                'Please complete your profile to book consultations.')),
+                      ],
+                    ),
                   ),
                 ),
 
